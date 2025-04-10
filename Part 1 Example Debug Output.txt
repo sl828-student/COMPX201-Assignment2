@@ -1,0 +1,25 @@
+Testing Appliance BST
+Tree:
+       Stand Freezer
+      / 	\
+     /   	 \
+    /     	  \
+   /       	   \
+   Heat pump       Stander Freezest
+            		\
+             		 \
+             		Gas Stove
+            		/
+           	  Candle
+
+Has element Candle: true
+Has element Heat Pump: true
+Sorted Appliances:
+            Heat pump |               Aircon | $1030.20 
+        Stand Freezer |               Fridge | $1000.20
+     Stander Freezest |               Fridge | $10430.20
+               Candle |                 Oven | $100.20
+            Gas Stove |                 Oven | $10200.20
+Height: 4
+Min:            Heat pump |               Aircon | $1030.20
+Max:            Gas Stove |                 Oven | $10200.20

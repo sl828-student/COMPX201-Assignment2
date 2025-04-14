@@ -1,28 +1,39 @@
 public class TestApplianceBST {
     public static void main(String[] args) {
-        // Create a new ApplianceBST
-        ApplianceBST bst = new ApplianceBST();
+        // Create an instance of ApplianceBST
+        ApplianceBST applianceBST = new ApplianceBST();
+
+        // Create appliances
+        Appliance standFreezer = new Appliance("Fridge", 1000.20f, "Stand Freezer");
+        Appliance standerFreezest = new Appliance("Fridge", 10430.20f, "Stander Freezest");
+        Appliance candle = new Appliance("Oven", 100.20f, "Candle");
+        Appliance gasStove = new Appliance("Oven", 10200.20f, "Gas Stove");
+        Appliance heatPump = new Appliance("Aircon", 1030.20f, "Heat pump");
 
         // Insert appliances into the BST
-        bst.insert(new Appliance("Aircon", 1030.20f, "Heat pump"));
-        bst.insert(new Appliance("Fridge", 1000.20f, "Stand Freezer"));
-        bst.insert(new Appliance("Fridge", 10430.20f, "Stander Freezest"));
-        bst.insert(new Appliance("Oven", 100.20f, "Candle"));
-        bst.insert(new Appliance("Oven", 10200.20f, "Gas Stove"));
+        applianceBST.insert(standFreezer);
+        applianceBST.insert(standerFreezest);
+        applianceBST.insert(candle);
+        applianceBST.insert(gasStove);
+        applianceBST.insert(heatPump);
 
-        // Print the tree structure using StrBSTPrinter
+        // Print the tree structure
         System.out.println("Tree:");
-        StrBSTPrinter.printNode(bst.getRoot());
+        StrBSTPrinter.printNode(applianceBST.getRoot());
 
-        // Test other methods
-        System.out.println("\nHas element Candle: " + bst.search(new Appliance("Oven", 100.20f, "Candle")));
-        System.out.println("Has element Heat Pump: " + bst.search(new Appliance("Aircon", 1030.20f, "Heat pump")));
+        // Test search for specific appliances
+        System.out.println("\nHas element Candle: " + applianceBST.search(candle));
+        System.out.println("Has element Heat Pump: " + applianceBST.search(heatPump));
 
+        // Print sorted appliances (in-order traversal)
         System.out.println("\nSorted Appliances:");
-        bst.print();
+        applianceBST.print();
 
-        System.out.println("\nHeight: " + bst.getHeight());
-        System.out.println("Min: " + bst.getMinimum());
-        System.out.println("Max: " + bst.getMaximum());
+        // Test height of the tree
+        System.out.println("\nHeight: " + applianceBST.getHeight());
+
+        // Test minimum and maximum appliances
+        System.out.println("Min: " + applianceBST.getMinimum());
+        System.out.println("Max: " + applianceBST.getMaximum());
     }
 }

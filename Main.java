@@ -1,4 +1,4 @@
-public class TestApplianceBST {
+public class Main {
     public static void main(String[] args) {
         // Create an instance of ApplianceBST
         ApplianceBST applianceBST = new ApplianceBST();
@@ -9,18 +9,13 @@ public class TestApplianceBST {
         Appliance candle = new Appliance("Oven", 100.20f, "Candle");
         Appliance gasStove = new Appliance("Oven", 10200.20f, "Gas Stove");
         Appliance heatPump = new Appliance("Aircon", 1030.20f, "Heat pump");
-        Appliance benis = new Appliance("Aircon", 10.20f, "Benis");
-        Appliance testPussy = new Appliance("Aircon", 20.20f, "Test Pussy");
-
-
+       
         // Insert appliances into the BST
         applianceBST.insert(standFreezer);
         applianceBST.insert(standerFreezest);
         applianceBST.insert(candle);
         applianceBST.insert(gasStove);
         applianceBST.insert(heatPump);
-        applianceBST.insert(benis);
-        applianceBST.insert(testPussy);
 
         // Print the tree structure
         System.out.println("Tree:");
@@ -29,6 +24,7 @@ public class TestApplianceBST {
         // Test search for specific appliances
         System.out.println("\nHas element Candle: " + applianceBST.search(candle));
         System.out.println("Has element Heat Pump: " + applianceBST.search(heatPump));
+        System.out.println("Has element Nonexistent: " + applianceBST.search(new Appliance("Nonexistent", 0, "Nonexistent")));
 
         // Print sorted appliances (in-order traversal)
         System.out.println("\nSorted Appliances:");
@@ -42,3 +38,4 @@ public class TestApplianceBST {
         System.out.println("Max: " + applianceBST.getMaximum());
     }
 }
+ 

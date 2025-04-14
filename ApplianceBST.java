@@ -26,8 +26,30 @@ public class ApplianceBST {
             cRoot.left = insertIntoSubtree(cRoot.left, a);
         } else if (a.compareTo(cRoot.value) > 0) {
             cRoot.right = insertIntoSubtree(cRoot.right, a);
+        } else {
+            return cRoot; // Duplicate values are not allowed
         }
-
+        updateHeight(cRoot);
+        int balance = getBalanceFactor(cRoot);
+        // Left Left Case
+        if (balance > 1 && a.compareTo(cRoot.left.value) < 0) {
+            return rotateRight(cRoot);
+        }
+        // Right Right Case
+        if (balance < -1 && a.compareTo(cRoot.right.value) > 0) {
+            return rotateLeft(cRoot);
+        }
+        // Left Right Case
+        if (balance > 1 && a.compareTo(cRoot.left.value) > 0) {
+            cRoot.left = rotateLeft(cRoot.left);
+            return rotateRight(cRoot);
+        }
+        // Right Left Case
+        if (balance < -1 && a.compareTo(cRoot.right.value) < 0) {
+            cRoot.right = rotateRight(cRoot.right);
+            return rotateLeft(cRoot);
+        }
+        
         return cRoot;
     }
 
@@ -44,17 +66,36 @@ public class ApplianceBST {
         } else if (a.compareTo(cRoot.value) > 0) {
             cRoot.right = removeFromSubtree(cRoot.right, a);
         } else {
-            if (cRoot.left == null && cRoot.right == null) {
-                return null;
-            } else if (cRoot.left == null) {
-                return cRoot.right;
-            } else if (cRoot.right == null) {
-                return cRoot.left;
+            if (cRoot.left == null || cRoot.right == null) {
+                cRoot = (cRoot.left != null) ? cRoot.left : cRoot.right;
             } else {
                 Node minNode = findMin(cRoot.right);
                 cRoot.value = minNode.value;
                 cRoot.right = removeFromSubtree(cRoot.right, minNode.value);
             }
+        }
+        if (cRoot == null) {
+            return null;
+        }
+        updateHeight(cRoot);
+        int balance = getBalanceFactor(cRoot);
+        // Left Left Case
+        if (balance > 1 && getBalanceFactor(cRoot.left) >= 0) {
+            return rotateRight(cRoot);
+        }
+        // Left Right Case  
+        if (balance > 1 && getBalanceFactor(cRoot.left) < 0) {
+            cRoot.left = rotateLeft(cRoot.left);
+            return rotateRight(cRoot);
+        }
+        // Right Right Case
+        if (balance < -1 && getBalanceFactor(cRoot.right) <= 0) {
+            return rotateLeft(cRoot);
+        }
+        // Right Left Case
+        if (balance < -1 && getBalanceFactor(cRoot.right) > 0) {
+            cRoot.right = rotateRight(cRoot.right);
+            return rotateLeft(cRoot);
         }
 
         return cRoot;
@@ -74,6 +115,18 @@ public class ApplianceBST {
         return false;
     }
 
+    public int getHeight(Node node){
+        if (node == null){
+            return 0;
+        }
+        return node.height;
+    }
+
+    private void updateHeight(Node node){
+        if (node != null){
+            node.height = 1 + Math.max(getHeight(node.left), getHeight(node.right));
+        }
+    }
     public int getHeight(){
         return getTreeHeight(root);
     }
@@ -111,6 +164,38 @@ public class ApplianceBST {
             cRoot = cRoot.right;
         }
         return cRoot;
+    }
+
+    private int getBalanceFactor(Node node) {
+        if(node == null){
+            return 0;
+        }
+        return getHeight(node.left) - getHeight(node.right);
+    }
+
+    private Node rotateRight(Node y) {
+        Node x = y.left;
+        Node T2 = x.right;
+
+        x.right = y;
+        y.left = T2;
+
+        updateHeight(y);
+        updateHeight(x);
+
+        return x;
+    }
+    private Node rotateLeft(Node x) {
+        Node y = x.right;
+        Node T2 = y.left;
+
+        y.left = x;
+        x.right = T2;
+
+        updateHeight(x);
+        updateHeight(y);
+
+        return y;
     }
 
     public void print() {

@@ -209,4 +209,85 @@ public class ApplianceBST {
             printInOrder(node.right);
         }
     }
+
+    public void printCategory(String category) {
+        System.out.println("Appliances in category: " + category);
+        printCategoryInOrder(root, category);
+    }
+
+    private void printCategoryInOrder(Node node, String c) {
+        if (node != null) {
+            printCategoryInOrder(node.left, c);
+            if (node.value.getCategory().equalsIgnoreCase(c)) {
+                System.out.println(node.value);
+            }
+            printCategoryInOrder(node.right, c);
+        }
+    }
+
+    public void printCategoryWithPrice(String category, float min, float max) {
+        System.out.println("Appliances in category: " + category + " with price between " + min + " and " + max);
+        printCategoryWithPriceInOrder(root, category, min, max);
+    }
+
+    private void printCategoryWithPriceInOrder(Node node, String c, float min, float max) {
+        if (node != null) {
+            printCategoryWithPriceInOrder(node.left, c, min, max);
+            if (node.value.getCategory().equalsIgnoreCase(c) && node.value.getPrice() >= min && node.value.getPrice() <= max) {
+                System.out.println(node.value);
+            }
+            printCategoryWithPriceInOrder(node.right, c, min, max);
+        }
+    }
+    public void printCategoryAbovePrice(String category, float min) {
+        System.out.println("Appliances in category: " + category + " with price above " + min);
+        printCategoryAbovePriceInOrder(root, category, min);
+    }
+    private void printCategoryAbovePriceInOrder(Node node, String c, float min) {
+        if (node != null) {
+            printCategoryAbovePriceInOrder(node.left, c, min);
+            if (node.value.getCategory().equalsIgnoreCase(c) && node.value.getPrice() > min) {
+                System.out.println(node.value);
+            }
+            printCategoryAbovePriceInOrder(node.right, c, min);
+        }
+    }
+
+    public void printCategoryBelowPrice(String category, float max) {
+        System.out.println("Appliances in category: " + category + " with price below " + max);
+        printCategoryBelowPriceInOrder(root, category, max);
+    }
+
+    private void printCategoryBelowPriceInOrder(Node node, String c, float max) {
+        if (node != null) {
+            printCategoryBelowPriceInOrder(node.left, c, max);
+            if (node.value.getCategory().equalsIgnoreCase(c) && node.value.getPrice() < max) {
+                System.out.println(node.value);
+            }
+            printCategoryBelowPriceInOrder(node.right, c, max);
+        }
+    }
+    public void printCategoryWithPriceRange(String category, float min, float max) {
+        System.out.println("Appliances in category: " + category + " with price range: " + min + " - " + max);
+        printCategoryWithPriceRangeInOrder(root, category, min, max);
+    }
+    
+    private void printCategoryWithPriceRangeInOrder(Node node, String category, float min, float max) {
+        if (node == null) {
+            return;
+        }
+    
+        // Always traverse the left subtree to ensure all relevant nodes are visited
+        printCategoryWithPriceRangeInOrder(node.left, category, min, max);
+    
+        // Check if the current node matches the category and is within the price range
+        if (node.value.getCategory().equalsIgnoreCase(category) &&
+            node.value.getPrice() >= min && node.value.getPrice() <= max) {
+            System.out.println(node.value);
+        }
+    
+        // Always traverse the right subtree to ensure all relevant nodes are visited
+        printCategoryWithPriceRangeInOrder(node.right, category, min, max);
+    }
+    
 }
